@@ -1,16 +1,16 @@
-import { getAuthClient, getClient } from '@faustwp/experimental-app-router';
-import { gql } from '@apollo/client';
-import { hasPreviewProps } from './hasPreviewProps';
-import { PleaseLogin } from '@/components/please-login';
+import { getAuthClient, getClient } from '@faustwp/experimental-app-router'
+import { gql } from '@apollo/client'
+import { hasPreviewProps } from './hasPreviewProps'
+import { PleaseLogin } from '@/components/please-login'
 
 export default async function Page(props) {
-  const isPreview = hasPreviewProps(props);
-  const id = isPreview ? props.searchParams.p : props.params.slug;
+  const isPreview = hasPreviewProps(props)
+  const id = isPreview ? props.searchParams.p : props.params.slug
 
-  let client = isPreview ? await getAuthClient() : await getClient();
+  let client = isPreview ? await getAuthClient() : await getClient()
 
   if (!client) {
-    return <PleaseLogin />;
+    return <PleaseLogin />
   }
 
   const { data } = await client.query({
@@ -36,14 +36,12 @@ export default async function Page(props) {
       idType: isPreview ? 'DATABASE_ID' : 'URI',
       asPreview: isPreview,
     },
-  });
+  })
 
   return (
     <main>
       <h2>{data?.contentNode?.title}</h2>
-      <div
-        dangerouslySetInnerHTML={{ __html: data?.contentNode?.content ?? '' }}
-      />
+      <div dangerouslySetInnerHTML={{ __html: data?.contentNode?.content ?? '' }} />
     </main>
-  );
+  )
 }

@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import Logo from "./Logo";
-import { useState } from "react";
+import Link from 'next/link'
+import Logo from './Logo'
+import { useState } from 'react'
 
 export const Header = ({ menuItems }) => {
-  const [mobileNavOpen, setOpen] = useState(false);
+  const [mobileNavOpen, setOpen] = useState(false)
   return (
     <div>
       <nav className="bg-black relative py-4 shadow-lg">
@@ -19,7 +19,7 @@ export const Header = ({ menuItems }) => {
               />
             </a>
             <ul className="hidden lg:flex items-center gap-10">
-              {menuItems.nodes.map((node) => (
+              {menuItems.nodes.map(node => (
                 <li key={node.id}>
                   <Link
                     href={node.uri}
@@ -50,16 +50,16 @@ export const Header = ({ menuItems }) => {
                   <path
                     d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                   <path
                     d="M16.4438 16.4438L21.0001 21.0001"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </a>
@@ -98,10 +98,7 @@ export const Header = ({ menuItems }) => {
                 </svg>
               </a>
             </div>
-            <button
-              onClick={() => setOpen((state) => !state)}
-              className="lg:hidden"
-            >
+            <button onClick={() => setOpen(state => !state)} className="lg:hidden">
               <svg
                 className="text-white"
                 width="51"
@@ -114,9 +111,9 @@ export const Header = ({ menuItems }) => {
                 <path
                   d="M37 32H19M37 24H19"
                   stroke="black"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </button>
@@ -126,19 +123,15 @@ export const Header = ({ menuItems }) => {
       {mobileNavOpen && (
         <div className="navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-xs z-50">
           <div
-            onClick={() => setOpen((state) => !state)}
+            onClick={() => setOpen(state => !state)}
             className="navbar-menu fixed inset-0 bg-black opacity-20"
           ></div>
           <nav className="relative p-8 w-full h-full bg-white overflow-y-auto">
             <div className="flex items-center justify-between">
               <a href="#" className="inline-block">
-                <img
-                  className="h-18"
-                  src="shopky-assets/logos/shopky-logo.svg"
-                  alt=""
-                />
+                <img className="h-18" src="shopky-assets/logos/shopky-logo.svg" alt="" />
               </a>
-              <button onClick={() => setOpen((state) => !state)}>
+              <button onClick={() => setOpen(state => !state)}>
                 <svg
                   width="24"
                   height="24"
@@ -149,9 +142,9 @@ export const Header = ({ menuItems }) => {
                   <path
                     d="M6 18L18 6M6 6L18 18"
                     stroke="#111827"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </button>
@@ -193,16 +186,16 @@ export const Header = ({ menuItems }) => {
                   <path
                     d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"
                     stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                   <path
                     d="M16.4438 16.4438L21.0001 21.0001"
                     stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </a>
@@ -245,5 +238,5 @@ export const Header = ({ menuItems }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}

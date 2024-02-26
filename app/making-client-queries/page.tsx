@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client'
 
 /**
  * You can make client side queries as well with Apollo's `useQuery` hook within
@@ -15,7 +15,7 @@ export default function Page() {
         title
       }
     }
-  `);
+  `)
 
-  return <>{data?.generalSettings?.title}</>;
+  return <>{data?.generalSettings?.title}</>
 }
