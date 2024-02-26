@@ -1,9 +1,14 @@
-import { getAuthClient, getClient } from '@faustwp/experimental-app-router';
-import { gql } from '@apollo/client';
-import { hasPreviewProps } from './hasPreviewProps';
-import { PleaseLogin } from '@/components/please-login';
+import { getAuthClient, getClient } from "@faustwp/experimental-app-router";
+import { gql } from "@apollo/client";
+import { hasPreviewProps } from "./hasPreviewProps";
+import { PleaseLogin } from "@/components/please-login";
 
-export default async function Page(props) {
+interface PageProps {
+  params?: any
+  searchParams?: any
+}
+
+export default async function Page(props: PageProps) {
   const isPreview = hasPreviewProps(props);
   const id = isPreview ? props.searchParams.p : props.params.slug;
 
@@ -33,16 +38,18 @@ export default async function Page(props) {
     `,
     variables: {
       id,
-      idType: isPreview ? 'DATABASE_ID' : 'URI',
+      idType: isPreview ? "DATABASE_ID" : "URI",
       asPreview: isPreview,
     },
   });
+
+  console.log(data?.contentNode?.content, id)
 
   return (
     <main>
       <h2>{data?.contentNode?.title}</h2>
       <div
-        dangerouslySetInnerHTML={{ __html: data?.contentNode?.content ?? '' }}
+        dangerouslySetInnerHTML={{ __html: data?.contentNode?.content ?? "" }}
       />
     </main>
   );

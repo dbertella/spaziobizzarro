@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "faust dev",
+    "build": "faust build",
     "generate": "faust generatePossibleTypes",
-    "start": "next start",
+    "start": "faust start",
     "lint": "next lint"
   },
   "dependencies": {
