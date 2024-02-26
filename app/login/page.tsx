@@ -1,19 +1,17 @@
-'use client';
+'use client'
 
-import { useFormState, useFormStatus } from 'react-dom';
-import { loginAction } from './action';
+import { useFormState, useFormStatus } from 'react-dom'
+import { loginAction } from './action'
 
 function SubmitButton() {
-  const status = useFormStatus();
+  const status = useFormStatus()
   return (
-    <button disabled={status.pending}>
-      {status.pending ? 'Loading...' : 'Login'}
-    </button>
-  );
+    <button disabled={status.pending}>{status.pending ? 'Loading...' : 'Login'}</button>
+  )
 }
 
 export default function Page() {
-  const [state, formAction] = useFormState(loginAction, {});
+  const [state, formAction] = useFormState(loginAction, {})
 
   return (
     <>
@@ -32,10 +30,8 @@ export default function Page() {
 
         <SubmitButton />
 
-        {state.error && (
-          <p dangerouslySetInnerHTML={{ __html: state.error }}></p>
-        )}
+        {state.error && <p dangerouslySetInnerHTML={{ __html: state.error }}></p>}
       </form>
     </>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import { PleaseLogin } from '@/components/please-login';
-import { gql } from '@apollo/client';
-import { getAuthClient, onLogout } from '@faustwp/experimental-app-router';
+import { PleaseLogin } from '@/components/please-login'
+import { gql } from '@apollo/client'
+import { getAuthClient, onLogout } from '@faustwp/experimental-app-router'
 
 export default async function Page() {
-  const client = await getAuthClient();
+  const client = await getAuthClient()
 
   if (!client) {
-    return <PleaseLogin />;
+    return <PleaseLogin />
   }
 
   const { data } = await client.query({
@@ -23,7 +23,7 @@ export default async function Page() {
         }
       }
     `,
-  });
+  })
 
   return (
     <>
@@ -31,7 +31,7 @@ export default async function Page() {
 
       <h3>My Posts</h3>
       <ul>
-        {data.viewer.posts.nodes.map((post) => (
+        {data.viewer.posts.nodes.map(post => (
           <li key={post.id}>{post.title}</li>
         ))}
       </ul>
@@ -40,5 +40,5 @@ export default async function Page() {
         <button type="submit">Logout</button>
       </form>
     </>
-  );
+  )
 }

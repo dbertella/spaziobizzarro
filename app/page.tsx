@@ -1,17 +1,17 @@
-import { gql } from "@apollo/client";
-import { getClient } from "@faustwp/experimental-app-router";
-import Image from "next/image";
-import Link from "next/link";
+import { gql } from '@apollo/client'
+import { getClient } from '@faustwp/experimental-app-router'
+import Image from 'next/image'
+import Link from 'next/link'
 
 type Post = {
-  id: string;
-  title: string;
-  uri: string;
-  slug: string;
-};
+  id: string
+  title: string
+  uri: string
+  slug: string
+}
 
 export default async function Home() {
-  let client = await getClient();
+  let client = await getClient()
 
   const { data } = await client.query({
     query: gql`
@@ -26,7 +26,7 @@ export default async function Home() {
         }
       }
     `,
-  });
+  })
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h2>Posts</h2>
@@ -38,5 +38,5 @@ export default async function Home() {
         ))}
       </ul>
     </main>
-  );
+  )
 }

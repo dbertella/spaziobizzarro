@@ -1,19 +1,19 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import Logo from "./Logo";
-import { useState } from "react";
+import Link from 'next/link'
+import Logo from './Logo'
+import { useState } from 'react'
 
 type MenuItems = {
   nodes: {
-    id: string;
-    label: string;
-    uri: string;
-  }[];
-};
+    id: string
+    label: string
+    uri: string
+  }[]
+}
 
 export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
-  const [mobileNavOpen, setOpen] = useState(false);
+  const [mobileNavOpen, setOpen] = useState(false)
   return (
     <div>
       <nav className="bg-black relative py-4 shadow-lg">
@@ -27,7 +27,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
               />
             </a>
             <ul className="hidden lg:flex items-center gap-10">
-              {menuItems.nodes.map((node) => (
+              {menuItems.nodes.map(node => (
                 <li key={node.id}>
                   <Link
                     href={node.uri}
@@ -106,10 +106,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                 </svg>
               </a>
             </div>
-            <button
-              onClick={() => setOpen((state) => !state)}
-              className="lg:hidden"
-            >
+            <button onClick={() => setOpen(state => !state)} className="lg:hidden">
               <svg
                 className="text-white"
                 width="51"
@@ -134,19 +131,15 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
       {mobileNavOpen && (
         <div className="navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-xs z-50">
           <div
-            onClick={() => setOpen((state) => !state)}
+            onClick={() => setOpen(state => !state)}
             className="navbar-menu fixed inset-0 bg-black opacity-20"
           ></div>
           <nav className="relative p-8 w-full h-full bg-white overflow-y-auto">
             <div className="flex items-center justify-between">
               <a href="#" className="inline-block">
-                <img
-                  className="h-18"
-                  src="shopky-assets/logos/shopky-logo.svg"
-                  alt=""
-                />
+                <img className="h-18" src="shopky-assets/logos/shopky-logo.svg" alt="" />
               </a>
-              <button onClick={() => setOpen((state) => !state)}>
+              <button onClick={() => setOpen(state => !state)}>
                 <svg
                   width="24"
                   height="24"
@@ -253,5 +246,5 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
