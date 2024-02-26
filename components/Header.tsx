@@ -58,16 +58,16 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                   <path
                     d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                   <path
                     d="M16.4438 16.4438L21.0001 21.0001"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </a>
@@ -122,9 +122,9 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                 <path
                   d="M37 32H19M37 24H19"
                   stroke="black"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 ></path>
               </svg>
             </button>
@@ -157,9 +157,9 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                   <path
                     d="M6 18L18 6M6 6L18 18"
                     stroke="#111827"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </button>
@@ -201,16 +201,16 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                   <path
                     d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z"
                     stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                   <path
                     d="M16.4438 16.4438L21.0001 21.0001"
                     stroke="black"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   ></path>
                 </svg>
               </a>
