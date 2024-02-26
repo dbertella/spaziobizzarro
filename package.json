@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "generate": "faust generatePossibleTypes",
     "start": "next start",
     "lint": "next lint"
   },
