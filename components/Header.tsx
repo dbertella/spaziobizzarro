@@ -16,7 +16,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
   const [mobileNavOpen, setOpen] = useState(false)
   return (
     <div>
-      <nav className="bg-black relative py-4 shadow-lg">
+      <nav className="bg-muted relative py-4 shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <a href="#" className="inline-block lg:hidden">
@@ -31,14 +31,14 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                 <li key={node.id}>
                   <Link
                     href={node.uri}
-                    className="text-white text-sm font-medium hover:text-opacity-80 transition duration-200"
+                    className="text-primary text-sm font-medium hover:text-opacity-80 transition duration-200"
                   >
                     {node.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="hidden lg:block absolute transform left-1/2 -translate-x-1/2">
+            <div className="absolute transform left-1/2 -translate-x-1/2">
               <Link href="/" className="inline-block">
                 <Logo />
               </Link>
@@ -46,7 +46,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
             <div className="hidden lg:flex gap-6">
               <a
                 href="#"
-                className="rounded-full bg-black p-3 flex items-center justify-between h-12 hover:bg-gray-900 focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-3 flex items-center justify-between h-12 hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -73,7 +73,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
               </a>
               <a
                 href="#"
-                className="rounded-full bg-black p-3 flex items-center justify-between h-12 hover:bg-gray-900 focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-3 flex items-center justify-between h-12 hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -90,7 +90,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
               </a>
               <a
                 href="#"
-                className="rounded-full bg-black p-3 flex items-center justify-between h-12 hover:bg-gray-900 focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-3 flex items-center justify-between h-12 hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
         <div className="navbar-menu fixed top-0 left-0 bottom-0 w-5/6 max-w-xs z-50">
           <div
             onClick={() => setOpen(state => !state)}
-            className="navbar-menu fixed inset-0 bg-black opacity-20"
+            className="navbar-menu fixed inset-0 bg-primary opacity-20"
           ></div>
           <nav className="relative p-8 w-full h-full bg-white overflow-y-auto">
             <div className="flex items-center justify-between">

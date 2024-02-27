@@ -2,6 +2,11 @@ import { PleaseLogin } from '@/components/please-login'
 import { gql } from '@apollo/client'
 import { getAuthClient, onLogout } from '@faustwp/experimental-app-router'
 
+type Post = {
+  id: string
+  title: string
+}
+
 export default async function Page() {
   const client = await getAuthClient()
 
@@ -31,7 +36,7 @@ export default async function Page() {
 
       <h3>My Posts</h3>
       <ul>
-        {data.viewer.posts.nodes.map(post => (
+        {data.viewer.posts.nodes.map((post: Post) => (
           <li key={post.id}>{post.title}</li>
         ))}
       </ul>

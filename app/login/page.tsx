@@ -11,7 +11,7 @@ function SubmitButton() {
 }
 
 export default function Page() {
-  const [state, formAction] = useFormState(loginAction, {})
+  const [state, formAction] = useFormState(loginAction, null)
 
   return (
     <>
@@ -30,7 +30,7 @@ export default function Page() {
 
         <SubmitButton />
 
-        {state.error && <p dangerouslySetInnerHTML={{ __html: state.error }}></p>}
+        {state?.error && <p dangerouslySetInnerHTML={{ __html: state.error }}></p>}
       </form>
     </>
   )
