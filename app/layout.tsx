@@ -6,6 +6,7 @@ import { Header } from '@/components/Header'
 import { FaustProvider } from '@faustwp/experimental-app-router/ssr'
 import './globals.css'
 import '@/faust.config.js'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -49,8 +50,24 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <FaustProvider>
-          <Header menuItems={data.primaryMenuItems} />
-          {children}
+          <div className="flex flex-col min-h-[100dvh]">
+            <Header menuItems={data.primaryMenuItems} />
+
+            {children}
+            <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                © {new Date().getFullYear()} Spazio Bizzarro. All rights reserved.
+              </p>
+              <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+                <Link className="text-xs hover:underline underline-offset-4" href="#">
+                  Amministrazione trasparente
+                </Link>
+                <Link className="text-xs hover:underline underline-offset-4" href="#">
+                  Privacy
+                </Link>
+              </nav>
+            </footer>
+          </div>
         </FaustProvider>
       </body>
     </html>
