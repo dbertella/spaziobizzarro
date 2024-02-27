@@ -43,8 +43,6 @@ export default async function Page(props: PageProps) {
     },
   })
 
-  console.log(data?.contentNode?.content, id)
-
   return (
     <main>
       <h2>{data?.contentNode?.title}</h2>

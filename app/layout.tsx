@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
 import { getClient } from '@faustwp/experimental-app-router'
 import { gql } from '@apollo/client'
 import { Header } from '@/components/Header'
+import { FaustProvider } from '@faustwp/experimental-app-router/ssr'
+import './globals.css'
+import '@/faust.config.js'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,8 +48,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header menuItems={data.primaryMenuItems} />
-        {children}
+        <FaustProvider>
+          <Header menuItems={data.primaryMenuItems} />
+          {children}
+        </FaustProvider>
       </body>
     </html>
   )
