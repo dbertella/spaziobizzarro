@@ -3,12 +3,14 @@ import { Input } from '@/components/ui/input'
 import { gql } from '@apollo/client'
 import { getClient } from '@faustwp/experimental-app-router'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type Post = {
   id: string
   title: string
   uri: string
   slug: string
+  excerpt: string
 }
 
 export default async function Home() {
@@ -23,6 +25,7 @@ export default async function Home() {
             title
             uri
             slug
+            excerpt
           }
         }
       }
@@ -155,7 +158,32 @@ export default async function Home() {
           </div>
         </div>
       </section>
-      <section className="w-full py-12 md:py-24 lg:py-32 border-t">
+      <section className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
+              Cosa Succede
+            </h2>
+            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto">
+              Le ultime novità
+            </p>
+          </div>
+          <div className="mx-auto grid max-w-5xl items-start gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+            {data.posts.nodes.map((post: Post) => (
+              <div className="grid gap-2" key={post.id}>
+                <Link href={`/${post.slug}`} className="text-xl font-bold">
+                  {post.title}
+                </Link>
+                <p
+                  className="text-sm text-gray-500 dark:text-gray-400"
+                  dangerouslySetInnerHTML={{ __html: post.excerpt ?? '' }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="w-full py-12 md:py-24 lg:py-32 border-t bg-gray-100 dark:bg-gray-800">
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
@@ -176,15 +204,5 @@ export default async function Home() {
         </div>
       </section>
     </main>
-    // <main className="flex min-h-screen flex-col items-center justify-between p-24">
-    //   <h2>Posts</h2>
-    //   <ul>
-    //     {data.posts.nodes.map((post: Post) => (
-    //       <li key={post.id}>
-    //         <Link href={`/${post.slug}`}>{post.title}</Link>
-    //       </li>
-    //     ))}
-    //   </ul>
-    // </main>
   )
 }
