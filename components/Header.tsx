@@ -158,26 +158,16 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
               </button>
             </div>
             <ul className="flex flex-col gap-12 py-12">
-              <li>
-                <a href="#" className="text-sm font-medium">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-medium">
-                  Shop
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-medium">
-                  Product
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-sm font-medium">
-                  Career
-                </a>
-              </li>
+              {menuItems.nodes.map(node => (
+                <li key={node.id}>
+                  <Link
+                    href={node.uri}
+                    className="text-sm font-medium hover:text-opacity-80 transition duration-200"
+                  >
+                    {node.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
             <div className="flex gap-6">
               <a
