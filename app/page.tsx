@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { gql } from '@apollo/client'
 import { getClient } from '@faustwp/experimental-app-router'
-import Image from 'next/image'
 import Link from 'next/link'
 
 type Post = {
@@ -18,7 +17,7 @@ export default async function Home() {
 
   const { data } = await client.query({
     query: gql`
-      query GetPosts {
+      query GetHomepage {
         posts {
           nodes {
             id
@@ -28,19 +27,65 @@ export default async function Home() {
             excerpt
           }
         }
+        nodeByUri(uri: "/") {
+          __typename
+          ... on ContentType {
+            id
+            name
+          }
+          ... on Page {
+            id
+            title
+          }
+        }
+        pages {
+          nodes {
+            homeSections {
+              sectionNews {
+                subtitle
+                title
+              }
+              sectionTeam {
+                subtitle
+                title
+              }
+              sectionNewsletter {
+                subtitle
+                title
+              }
+              sectionWhat {
+                subtitle
+                title
+              }
+              sectionWho {
+                subtitle
+                title
+              }
+              homeSubtitle
+            }
+          }
+        }
       }
     `,
   })
+  const {
+    homeSubtitle,
+    sectionNews,
+    sectionNewsletter,
+    sectionWhat,
+    sectionWho,
+    sectionTeam,
+  } = data.pages.nodes[0].homeSections
   return (
     <main className="flex-1">
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center">
-              Il Circo Contemporaneo in Brianza
+              {data.nodeByUri.title}
             </h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 text-center mx-auto">
-              Siamo bellissimi, in gambissima e facciamo riderissimo
+              {homeSubtitle}
             </p>
           </div>
           {/* <div className="mx-auto w-full max-w-sm space-y-2">
@@ -61,36 +106,25 @@ export default async function Home() {
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
-              Noi Siamo Spazio Bizzarro
+              {sectionWho.title}
             </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat.
-            </p>
+            <p
+              className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto"
+              dangerouslySetInnerHTML={{ __html: sectionWho.subtitle ?? '' }}
+            />
           </div>
-          <Image
-            alt="Image"
-            className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center lg:w-full"
-            height="500"
-            src="/2020-08_spazio-bizzarro-4.jpg"
-            width="1000"
-          />
         </div>
       </section>
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
-              Cosa Facciamo
+              {sectionWhat.title}
             </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat.
-            </p>
+            <p
+              className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto"
+              dangerouslySetInnerHTML={{ __html: sectionWhat.subtitle ?? '' }}
+            />
           </div>
           <div className="mx-auto grid max-w-5xl items-start gap-10 lg:grid-cols-2 lg:gap-12">
             <div className="grid gap-2">
@@ -128,11 +162,12 @@ export default async function Home() {
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
-              Il Team Bizzarro
+              {sectionTeam.title}
             </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto">
-              Ecco il nostro fantastico team
-            </p>
+            <p
+              className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto"
+              dangerouslySetInnerHTML={{ __html: sectionTeam.subtitle ?? '' }}
+            />
           </div>
           <div className="mx-auto grid max-w-5xl items-start gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
             <div className="grid gap-2">
@@ -162,11 +197,12 @@ export default async function Home() {
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
-              Cosa Succede
+              {sectionNews.title}
             </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto">
-              Le ultime novità
-            </p>
+            <p
+              className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto"
+              dangerouslySetInnerHTML={{ __html: sectionNews.subtitle ?? '' }}
+            />
           </div>
           <div className="mx-auto grid max-w-5xl items-start gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
             {data.posts.nodes.map((post: Post) => (
@@ -187,12 +223,12 @@ export default async function Home() {
         <div className="container grid items-center gap-6 px-4 md:px-6 lg:gap-10">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-center">
-              Vuoi restare informato?
+              {sectionNewsletter.title}
             </h2>
-            <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto">
-              Iscriviti alla newsletter più bizzarra che c&apos;è! L&apos;unica newsletter
-              alla quale sarai tu a scrivere perché penserai di essere stato dimenticato!
-            </p>
+            <p
+              className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 mx-auto"
+              dangerouslySetInnerHTML={{ __html: sectionNewsletter.subtitle ?? '' }}
+            />
           </div>
           <div className="mx-auto w-full max-w-sm space-y-2">
             <form className="grid gap-2">
