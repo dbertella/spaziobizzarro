@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Geologica } from 'next/font/google'
 import { getClient } from '@faustwp/experimental-app-router'
 import { gql } from '@apollo/client'
 import { Header } from '@/components/Header'
@@ -8,7 +8,7 @@ import './globals.css'
 import '@/faust.config.js'
 import Link from 'next/link'
 
-const inter = Inter({ subsets: ['latin'] })
+const googleFont = Geologica({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -48,7 +48,7 @@ export default async function RootLayout({
   })
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={googleFont.className}>
         <FaustProvider>
           <div className="flex flex-col min-h-[100dvh]">
             <Header menuItems={data.primaryMenuItems} />

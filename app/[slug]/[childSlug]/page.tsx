@@ -1,6 +1,6 @@
 import { getAuthClient, getClient } from '@faustwp/experimental-app-router'
 import { gql } from '@apollo/client'
-import { hasPreviewProps } from '../hasPreviewProps'
+import { hasPreviewProps } from '../../hasPreviewProps'
 import { PleaseLogin } from '@/components/please-login'
 
 interface PageProps {
@@ -10,7 +10,7 @@ interface PageProps {
 
 export default async function Page(props: PageProps) {
   const isPreview = hasPreviewProps(props)
-  const id = isPreview ? props.searchParams.p : props.params.slug
+  const id = isPreview ? props.searchParams.p : props.params.childSlug
 
   let client = isPreview ? await getAuthClient() : await getClient()
 

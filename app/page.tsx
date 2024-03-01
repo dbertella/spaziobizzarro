@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { gql } from '@apollo/client'
-import { getClient } from '@faustwp/experimental-app-router'
+import { getAuthClient, getClient } from '@faustwp/experimental-app-router'
 import Link from 'next/link'
+import { hasPreviewProps } from './hasPreviewProps'
+import { PleaseLogin } from '@/components/please-login'
 
 type Post = {
   id: string
@@ -12,8 +14,19 @@ type Post = {
   excerpt: string
 }
 
-export default async function Home() {
-  let client = await getClient()
+interface PageProps {
+  params?: any
+  searchParams?: any
+}
+
+export default async function Home(props: PageProps) {
+  const isPreview = hasPreviewProps(props)
+
+  let client = isPreview ? await getAuthClient() : await getClient()
+
+  if (!client) {
+    return <PleaseLogin />
+  }
 
   const { data } = await client.query({
     query: gql`
@@ -36,16 +49,15 @@ export default async function Home() {
           ... on Page {
             id
             title
-          }
-        }
-        pages {
-          nodes {
-            homeSections {
-              sectionNews {
-                subtitle
-                title
+            featuredImage {
+              node {
+                altText
+                uri
               }
-              sectionTeam {
+            }
+            homeSections {
+              homeSubtitle
+              sectionNews {
                 subtitle
                 title
               }
@@ -61,7 +73,10 @@ export default async function Home() {
                 subtitle
                 title
               }
-              homeSubtitle
+              sectionTeam {
+                subtitle
+                title
+              }
             }
           }
         }
@@ -75,7 +90,8 @@ export default async function Home() {
     sectionWhat,
     sectionWho,
     sectionTeam,
-  } = data.pages.nodes[0].homeSections
+  } = data.nodeByUri.homeSections
+
   return (
     <main className="flex-1">
       <section className="w-full py-12 md:py-24 lg:py-32">
