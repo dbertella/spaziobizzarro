@@ -10,7 +10,9 @@ interface PageProps {
 
 export default async function Page(props: PageProps) {
   const isPreview = hasPreviewProps(props)
-  const id = isPreview ? props.searchParams.p : props.params.childSlug
+  const id = isPreview
+    ? props.searchParams.p
+    : `${props.params.slug}/${props.params.childSlug}`
 
   let client = isPreview ? await getAuthClient() : await getClient()
 
