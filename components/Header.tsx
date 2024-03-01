@@ -18,7 +18,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
   const [mobileNavOpen, setOpen] = useState(false)
   return (
     <div>
-      <nav className="bg-muted relative py-4 shadow-lg">
+      <nav className="bg-muted relative shadow-lg lg:pt-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <a href="#" className="inline-block lg:hidden">
@@ -40,7 +40,7 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
                 </li>
               ))}
             </ul>
-            <div className="absolute transform left-1/2 -translate-x-1/2">
+            <div className="absolute transform lg:-top-12 left-1/2 -translate-x-1/2">
               <Link href="/" className="inline-block">
                 <Logo />
               </Link>
@@ -48,13 +48,13 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
             <div className="hidden lg:flex gap-6">
               <a
                 href="https://www.facebook.com/spaziobizzarro"
-                className="rounded-full bg-primary p-3 flex items-center justify-between h-12 hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-2 m-2 flex items-center justify-between hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <Fb className="text-white h-6 w-6" />
               </a>
               <a
                 href="https://www.instagram.com/spaziobizzarro/"
-                className="rounded-full bg-primary p-3 flex items-center justify-between h-12 hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-2 m-2 flex items-center justify-between hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <Ig className="text-white h-6 w-6" />
               </a>
@@ -125,13 +125,13 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
             <div className="flex gap-6">
               <a
                 href="https://www.facebook.com/spaziobizzarro/"
-                className="rounded-full bg-white p-3 flex items-center justify-between h-12 hover:bg-gray-50 focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-white flex items-center justify-between h-8 w-8 hover:bg-gray-50 focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <Fb />
               </a>
               <a
                 href="https://www.instagram.com/spaziobizzarro/"
-                className="rounded-full bg-white p-3 flex items-center justify-between h-12 hover:bg-gray-50 focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-white flex items-center justify-between h-8 w-8 hover:bg-gray-50 focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
                 <Ig />
               </a>

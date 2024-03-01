@@ -34,6 +34,7 @@ export default async function RootLayout({
             id
             label
             uri
+            parentId
           }
         }
         footerMenuItems: menuItems(where: { location: FOOTER }) {
@@ -46,6 +47,8 @@ export default async function RootLayout({
       }
     `,
   })
+
+  console.log(data.primaryMenuItems)
   return (
     <html lang="en">
       <body className={googleFont.className}>
