@@ -48,7 +48,6 @@ export default async function RootLayout({
     `,
   })
 
-  console.log(data.primaryMenuItems)
   return (
     <html lang="en">
       <body className={googleFont.className}>
