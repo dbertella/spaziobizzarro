@@ -19,13 +19,13 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
   return (
     <div>
       <nav className="bg-muted relative shadow-lg">
-        <div className="container flex justify-center -my-12 relative">
-          <Link href="/" className="inline-block">
+        <div className="container flex justify-center relative">
+          <Link href="/" className="m-1 lg:mt-5">
             <Logo />
           </Link>
           <button
             onClick={() => setOpen(state => !state)}
-            className="absolute right-0 top-12 m-1 lg:hidden"
+            className="absolute right-0 top-0 m-1 lg:hidden"
           >
             <svg
               className="text-white"
