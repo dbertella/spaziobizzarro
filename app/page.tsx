@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { gql } from '@apollo/client'
-import { getAuthClient, getClient } from '@faustwp/experimental-app-router'
+import { getClient } from '@faustwp/experimental-app-router'
 import Link from 'next/link'
 import { hasPreviewProps } from './hasPreviewProps'
-import { PleaseLogin } from '@/components/please-login'
+import { revalidatePath } from 'next/cache'
 
 type Post = {
   id: string
@@ -22,10 +22,9 @@ interface PageProps {
 export default async function Home(props: PageProps) {
   const isPreview = hasPreviewProps(props)
 
-  let client = isPreview ? await getAuthClient() : await getClient()
-
-  if (!client) {
-    return <PleaseLogin />
+  let client = await getClient()
+  if (isPreview) {
+    revalidatePath(`/`)
   }
 
   const { data } = await client.query({

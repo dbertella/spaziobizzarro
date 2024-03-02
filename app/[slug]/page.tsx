@@ -2,6 +2,7 @@ import { getAuthClient, getClient } from '@faustwp/experimental-app-router'
 import { gql } from '@apollo/client'
 import { hasPreviewProps } from '../hasPreviewProps'
 import { PleaseLogin } from '@/components/please-login'
+import { revalidatePath } from 'next/cache'
 
 interface PageProps {
   params?: any
@@ -16,6 +17,10 @@ export default async function Page(props: PageProps) {
 
   if (!client) {
     return <PleaseLogin />
+  }
+
+  if (isPreview) {
+    revalidatePath(`/${props.params.slug}`)
   }
 
   const { data } = await client.query({

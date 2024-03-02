@@ -2,11 +2,15 @@
 
 import { useFormState, useFormStatus } from 'react-dom'
 import { loginAction } from './action'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 function SubmitButton() {
   const status = useFormStatus()
   return (
-    <button disabled={status.pending}>{status.pending ? 'Loading...' : 'Login'}</button>
+    <Button disabled={status.pending} className="mt-2">
+      {status.pending ? 'Loading...' : 'Login'}
+    </Button>
   )
 }
 
@@ -17,15 +21,15 @@ export default function Page() {
     <>
       <h2>Login</h2>
 
-      <form action={formAction}>
+      <form action={formAction} className="w-[400px] mx-auto">
         <fieldset>
           <label htmlFor="usernameEmail">Username or Email</label>
-          <input type="name" name="usernameEmail" />
+          <Input type="name" name="usernameEmail" />
         </fieldset>
 
         <fieldset>
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" />
+          <Input type="password" name="password" />
         </fieldset>
 
         <SubmitButton />
