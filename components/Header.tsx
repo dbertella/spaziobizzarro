@@ -5,32 +5,126 @@ import Logo from './Logo'
 import { useState } from 'react'
 import { Fb } from './icons/fb'
 import { Ig } from './icons/ig'
+import { cn } from '@/lib/utils'
 
 type MenuItems = {
   nodes: {
     id: string
     label: string
     uri: string
+    parentId: string | null
+    children?: MenuItems['nodes']
   }[]
+}
+
+type HierarchicalLink = MenuItems['nodes'][number] & {
+  children: HierarchicalLink[]
+}
+
+const ChevronDown = () => (
+  <svg
+    className="w-2.5 h-2.5 ms-3"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 10 6"
+  >
+    <path
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="m1 1 4 4 4-4"
+    />
+  </svg>
+)
+const SubMenu = ({
+  menuItems,
+  className,
+}: {
+  menuItems: HierarchicalLink[]
+  className: string
+}) => {
+  return (
+    <div className={className}>
+      <ul className="p-4 grid grid-cols-2 gap-4">
+        {menuItems.map(node => (
+          <li key={node.id}>
+            <Link
+              href={node.uri}
+              className="text-primary text-sm font-medium hover:text-destructive transition duration-200"
+            >
+              {node.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+const flatListToHierarchical = (data: MenuItems['nodes']): HierarchicalLink[] => {
+  const tree: any = []
+  const childrenOf: any = {}
+  data.forEach(item => {
+    const newItem = { ...item }
+    const { id, parentId } = newItem
+    childrenOf[id] = childrenOf[id] || []
+    newItem.children = childrenOf[id]
+    parentId
+      ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem)
+      : tree.push(newItem)
+  })
+  return tree
+}
+
+const LinkWithHierarchy = ({ uri, label, children }: HierarchicalLink) => {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <li
+      onMouseLeave={() => setOpen(false)}
+      onMouseEnter={() => setOpen(true)}
+      className="relative"
+    >
+      <Link
+        href={uri}
+        className="text-primary text-sm font-medium hover:text-destructive transition duration-200 flex justify-between items-center"
+      >
+        {label}
+        {children.length > 0 && <ChevronDown />}
+      </Link>
+      {children.length > 0 && (
+        <SubMenu
+          menuItems={children}
+          className={cn(
+            'absolute z-10 w-[400px] -left-[50%] bg-white border border-input rounded-md shadow-lg',
+            open ? 'block' : 'hidden',
+          )}
+        />
+      )}
+    </li>
+  )
 }
 
 export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
   const [mobileNavOpen, setOpen] = useState(false)
+  const hierarchicalyLinks = flatListToHierarchical(menuItems.nodes)
   return (
-    <div>
-      <nav className="bg-muted relative shadow-lg">
-        <div className="container flex justify-center relative">
-          <Link href="/" className="m-1 lg:mt-5">
+    <div className="sticky top-0 z-50 lg:-top-16">
+      <nav className="bg-muted shadow-lg">
+        <div className="container flex justify-center relative h-16">
+          <Link href="/" className="m-2 lg:mt-8 flex items-center">
             <Logo />
           </Link>
           <button
             onClick={() => setOpen(state => !state)}
-            className="absolute right-0 top-0 m-1 lg:hidden"
+            className="absolute right-0 top-0 m-2 lg:hidden"
           >
             <svg
               className="text-white"
-              width="51"
-              height="51"
+              width="48"
+              height="48"
               viewBox="0 0 56 56"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -49,29 +143,22 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <ul className="hidden lg:flex items-center gap-10">
-              {menuItems.nodes.map(node => (
-                <li key={node.id}>
-                  <Link
-                    href={node.uri}
-                    className="text-primary text-sm font-medium hover:text-opacity-80 transition duration-200"
-                  >
-                    {node.label}
-                  </Link>
-                </li>
+              {hierarchicalyLinks.map(node => (
+                <LinkWithHierarchy key={node.id} {...node} />
               ))}
             </ul>
-            <div className="hidden lg:flex gap-6">
+            <div className="hidden lg:flex">
               <a
                 href="https://www.facebook.com/spaziobizzarro"
-                className="rounded-full bg-primary p-2 m-2 flex items-center justify-between hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-1.5 m-2 flex items-center justify-between hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
-                <Fb className="text-white h-6 w-6" />
+                <Fb className="text-white h-5 w-5" />
               </a>
               <a
                 href="https://www.instagram.com/spaziobizzarro/"
-                className="rounded-full bg-primary p-2 m-2 flex items-center justify-between hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
+                className="rounded-full bg-primary p-1.5 m-2 flex items-center justify-between hover:bg-destructive focus:ring-4 focus:ring-gray-200 transition duration-200"
               >
-                <Ig className="text-white h-6 w-6" />
+                <Ig className="text-white h-5 w-5" />
               </a>
             </div>
           </div>
@@ -107,10 +194,20 @@ export const Header = ({ menuItems }: { menuItems: MenuItems }) => {
               </button>
             </div>
             <ul className="flex flex-col gap-12 py-12">
+              <li>
+                <Link
+                  href="/"
+                  onClick={() => setOpen(state => !state)}
+                  className="text-sm font-medium hover:text-opacity-80 transition duration-200"
+                >
+                  Home
+                </Link>
+              </li>
               {menuItems.nodes.map(node => (
-                <li key={node.id}>
+                <li key={node.id} className={node.parentId ? 'pl-4' : ''}>
                   <Link
                     href={node.uri}
+                    onClick={() => setOpen(state => !state)}
                     className="text-sm font-medium hover:text-opacity-80 transition duration-200"
                   >
                     {node.label}
